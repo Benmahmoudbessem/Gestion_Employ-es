@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
 public class RotatingImageLabel extends JLabel {
     private ImageIcon icon;
     private int angle = 0;
-    private static final int WIDTH = 20;  // Taille réduite de l'image
-    private static final int HEIGHT = 20; // Taille réduite de l'image
+    private static final int WIDTH = 20;  // Taille  de l'image
+    private static final int HEIGHT = 20; // Taille de l'image
 
     public RotatingImageLabel(String imagePath) {
         super(new ImageIcon(imagePath));
         this.icon = (ImageIcon) getIcon();
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));  // Dimension réduite pour l'icône
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));  // Dimension  pour l'icône
         setHorizontalAlignment(JLabel.CENTER);
         setVerticalAlignment(JLabel.CENTER);
 

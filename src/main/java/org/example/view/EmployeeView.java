@@ -148,7 +148,7 @@ public class EmployeeView extends JFrame {
             displayArea.append("Nom: " + emp.getName() + "\n");
             displayArea.append("Poste: " + emp.getPosition() + "\n");
             displayArea.append("Salaire: " + emp.getSalary() + "\n");
-            displayArea.append("-----------------------------------------\n");
+            displayArea.append("*****************************************\n");
         }
     }
 

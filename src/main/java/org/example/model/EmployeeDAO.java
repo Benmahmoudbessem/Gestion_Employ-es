@@ -11,6 +11,7 @@ public class EmployeeDAO {
 
 
 
+
     // Ajouter un employé
     public void addEmployee(Employee employee) {
         String query = "INSERT INTO employees (name, position, salary) VALUES (?, ?, ?)";

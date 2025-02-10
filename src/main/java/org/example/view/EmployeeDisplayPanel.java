@@ -27,7 +27,7 @@ public class EmployeeDisplayPanel extends JPanel {
             htmlContent.append("Nom: ").append(emp.getName()).append("<br>");
             htmlContent.append("Poste: ").append(emp.getPosition()).append("<br>");
             htmlContent.append("Salaire: ").append(emp.getSalary()).append("<br>");
-            htmlContent.append("-----------------------------------------</p>");
+            htmlContent.append("***********************************************</p>");
         }
         htmlContent.append("</body></html>");
         displayArea.setText(htmlContent.toString());
