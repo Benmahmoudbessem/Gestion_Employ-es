@@ -26,7 +26,7 @@ public class LoginFrame extends JDialog {
         mainPanel.setBackground(new Color(240, 240, 240));
 
         // Titre
-        JLabel titleLabel = new JLabel("AUTHENTIFICATION");
+        JLabel titleLabel = new JLabel("Merci de vous connecter  ");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);

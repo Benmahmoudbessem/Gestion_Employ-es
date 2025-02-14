@@ -1,17 +1,18 @@
 package org.example.controller;
 
 import org.example.model.Employee;
-import org.example.model.EmployeeDAO;
+import org.example.Service.EmployeeService;
 import org.example.view.EmployeeView;
 
 import javax.swing.*;
+import java.util.Optional;
 
 public class EmployeeController {
-    private final EmployeeDAO model;
+    private final EmployeeService service;
     private final EmployeeView view;
 
-    public EmployeeController(EmployeeDAO model, EmployeeView view) {
-        this.model = model;
+    public EmployeeController(EmployeeService service, EmployeeView view) {
+        this.service = service;
         this.view = view;
     }
 
@@ -27,7 +28,14 @@ public class EmployeeController {
     private void addEmployee() {
         try {
             Employee emp = view.getEmployeeDetails();
-            model.addEmployee(emp);
+
+            // Vérifier si les champs sont vides
+            if (emp.getName().isEmpty() || emp.getPosition().isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            service.addEmployee(emp);
             JOptionPane.showMessageDialog(view, "Employé ajouté avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
             updateView();
         } catch (NumberFormatException ex) {
@@ -41,7 +49,15 @@ public class EmployeeController {
     private void deleteEmployee() {
         try {
             int id = view.getSelectedEmployeeId();
-            model.deleteEmployee(id);
+
+            // Vérifier si l'ID existe avant suppression
+            Optional<Employee> employee = service.getEmployeeById(id);
+            if (employee.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Employé introuvable !", "Erreur", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            service.deleteEmployee(id);
             JOptionPane.showMessageDialog(view, "Employé supprimé avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
             updateView();
         } catch (NumberFormatException ex) {
@@ -54,23 +70,27 @@ public class EmployeeController {
     // ✅ Méthode pour mettre à jour un employé
     private void updateEmployee() {
         try {
-            int id = view.getUpdateEmployeeId(); // Récupérer l'ID de l'employé à mettre à jour
-            String name = view.getEmployeeDetails().getName();
-            String position = view.getEmployeeDetails().getPosition();
-            double salary = view.getEmployeeDetails().getSalary();
+            int id = view.getUpdateEmployeeId();
+            Employee emp = view.getEmployeeDetails();
 
-            if (name.isEmpty() || position.isEmpty()) {
+            if (emp.getName().isEmpty() || emp.getPosition().isEmpty()) {
                 JOptionPane.showMessageDialog(view, "Veuillez remplir tous les champs avant la mise à jour.", "Erreur", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Créer un nouvel objet Employee avec les nouvelles informations
-            Employee updatedEmployee = new Employee(id, name, position, salary);
-            model.updateEmployee(updatedEmployee);
+            // Vérifier si l'ID existe avant mise à jour
+            Optional<Employee> existingEmployee = service.getEmployeeById(id);
+            if (existingEmployee.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Employé introuvable !", "Erreur", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Créer un nouvel objet Employee avec l'ID existant
+            Employee updatedEmployee = new Employee(id, emp.getName(), emp.getPosition(), emp.getSalary());
+            service.updateEmployee(updatedEmployee);
 
             JOptionPane.showMessageDialog(view, "Employé mis à jour avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
             updateView();
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(view, "Veuillez entrer un salaire valide.", "Erreur", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
@@ -80,6 +100,6 @@ public class EmployeeController {
 
     // ✅ Méthode pour actualiser la vue
     private void updateView() {
-        view.displayEmployees(model.getAllEmployees());
+        view.displayEmployees(service.getAllEmployees());
     }
 }

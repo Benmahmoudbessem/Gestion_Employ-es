@@ -1,10 +1,12 @@
 package org.example.model;
 
+import org.example.Repository.EmployeeRepository;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAO {
+public class EmployeeDAO implements EmployeeRepository {
     private static final String URL = "jdbc:mysql://localhost:3307/employee_bw";
     private static final String USER = "root";
     private static final String PASSWORD = "";

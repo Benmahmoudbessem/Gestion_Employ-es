@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Service.EmployeeService;
 import org.example.controller.EmployeeController;
 import org.example.model.EmployeeDAO;
 import org.example.view.EmployeeView;
@@ -20,9 +21,10 @@ public class Main {
                 JOptionPane.showMessageDialog(null, "Connexion réussie bienvenue Bessem&Wajdi !");
 
                 // Démarrer l'application principale
-                EmployeeDAO model = new EmployeeDAO();
+                EmployeeDAO dao = new EmployeeDAO();
+                EmployeeService service = new EmployeeService(dao);
                 EmployeeView view = new EmployeeView();
-                EmployeeController controller = new EmployeeController(model, view);
+                EmployeeController controller = new EmployeeController(service, view);
 
                 controller.start();
             } else {

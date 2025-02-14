@@ -36,8 +36,8 @@ public class RotatingImageLabel extends JLabel {
     }
 
     private Image rotateImage(Image srcImg, int angle) {
-        int w = WIDTH;  // Largeur redimensionnée
-        int h = HEIGHT; // Hauteur redimensionnée
+        int w = WIDTH;
+        int h = HEIGHT;
         BufferedImage rotatedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = rotatedImg.createGraphics();
         g2d.rotate(Math.toRadians(angle), w / 2, h / 2);

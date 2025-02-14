@@ -22,9 +22,19 @@ public class EmployeeView extends JFrame {
     private JTextArea displayArea = new JTextArea(10, 40);
 
     public EmployeeView() {
-        setTitle("Gestion des Employés");
-        setSize(800, 650);
+        setTitle("Gestion des Employés BW");
+        setSize(900, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Personnalisation de la barre de titre
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.setBackground(new Color(70, 130, 200));  // Couleur de fond de la barre de titre
+
+        // Logo dans la barre de titre
+        ImageIcon logo = new ImageIcon("src/main/resources/logo.png");  // Chemin vers le logo
+        JLabel logoLabel = new JLabel(logo);
+        titlePanel.add(logoLabel, BorderLayout.WEST);
 
         // Couleurs et mise en page
         Color backgroundColor = new Color(245, 245, 245);
